@@ -1,0 +1,95 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "segauge"
+version = "0.1.0.dev0"
+description = "The honest, geometrically-correct, DICOM-native evaluation harness for medical image segmentation."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Ruben Haisma" }]
+keywords = [
+    "medical-imaging",
+    "medical-image-analysis",
+    "image-segmentation",
+    "segmentation",
+    "evaluation",
+    "metrics",
+    "dice",
+    "iou",
+    "jaccard",
+    "hausdorff",
+    "hd95",
+    "surface-distance",
+    "surface-dice",
+    "nsd",
+    "assd",
+    "confidence-interval",
+    "dicom",
+    "dicom-seg",
+    "rtstruct",
+    "nifti",
+    "nnunet",
+    "monai",
+    "totalsegmentator",
+    "radiology",
+    "computer-vision",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Healthcare Industry",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+    "Topic :: Scientific/Engineering :: Image Processing",
+]
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "scikit-image>=0.21",
+    "trimesh>=4.0",
+    "rtree>=1.0",
+    "nibabel>=5.0",
+    "jinja2>=3.1",
+]
+
+[project.optional-dependencies]
+dicom = ["pydicom>=2.4", "highdicom>=0.22", "rt-utils>=1.2"]
+
+[project.scripts]
+segauge = "segauge.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/RubenHaisma/segauge"
+Repository = "https://github.com/RubenHaisma/segauge"
+Issues = "https://github.com/RubenHaisma/segauge/issues"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.6",
+    "mypy>=1.10",
+]
+
+# MeshMetrics (Apache-2.0, git-only) is used as a dev-only correctness ORACLE,
+# not a runtime dependency. Install it explicitly when running oracle tests:
+#   uv pip install "git+https://github.com/gasperpodobnik/MeshMetrics.git"
+# Oracle tests are skipped automatically if it is not importable.
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/segauge"]
+
+[tool.ruff]
+line-length = 88
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
