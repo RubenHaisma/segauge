@@ -31,7 +31,7 @@ from segauge.metrics.overlap import confusion, dice, iou
 from segauge.stats import bootstrap_ci
 from segauge.types import Estimate
 
-__version__ = "0.1.0.dev0"
+__version__ = "0.1.0"
 
 __all__ = [
     "Case",
