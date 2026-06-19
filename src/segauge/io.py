@@ -131,12 +131,31 @@ def load_rtstruct(
     if spacing is not None:
         return mask, _coerce_spacing(spacing, mask.ndim)
 
-    # derive spacing from the referenced series geometry
-    series = sorted(Path(series_dir).glob("*"))
-    ds = next(
-        pydicom.dcmread(str(p), stop_before_pixels=True) for p in series if p.is_file()
-    )
-    row_sp, col_sp = (float(v) for v in ds.PixelSpacing)
-    slice_sp = float(getattr(ds, "SpacingBetweenSlices", None) or ds.SliceThickness)
+    # Derive spacing from the referenced series GEOMETRY. Slice spacing comes
+    # from the actual ImagePositionPatient differences, not the
+    # SpacingBetweenSlices / SliceThickness tags, which are often missing,
+    # stale, or inconsistent with the true slice positions (and silently
+    # corrupt distance metrics when they are).
+    datasets = [
+        pydicom.dcmread(str(p), stop_before_pixels=True)
+        for p in sorted(Path(series_dir).glob("*"))
+        if p.is_file()
+    ]
+    datasets = [d for d in datasets if hasattr(d, "ImagePositionPatient")]
+    if not datasets:
+        raise ValueError(f"no DICOM image slices found in {series_dir!r}")
+
+    row_sp, col_sp = (float(v) for v in datasets[0].PixelSpacing)
+    if len(datasets) >= 2:
+        positions = np.array(
+            [[float(x) for x in d.ImagePositionPatient] for d in datasets]
+        )
+        positions = positions[np.argsort(positions[:, 2])]
+        slice_sp = float(np.median(np.linalg.norm(np.diff(positions, axis=0), axis=1)))
+    else:
+        slice_sp = float(
+            getattr(datasets[0], "SpacingBetweenSlices", None)
+            or datasets[0].SliceThickness
+        )
     # rt-utils returns mask as (rows, cols, slices)
     return mask, (row_sp, col_sp, slice_sp)
