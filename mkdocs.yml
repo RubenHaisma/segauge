@@ -1,0 +1,55 @@
+site_name: segauge
+site_description: >-
+  Geometrically-correct, DICOM-native evaluation metrics for medical image
+  segmentation in Python: Dice, IoU, Hausdorff distance, HD95, ASSD, Normalized
+  Surface Dice, per-lesion detection F1, with bootstrap confidence intervals.
+site_url: https://rubenhaisma.github.io/segauge/
+repo_url: https://github.com/RubenHaisma/segauge
+repo_name: RubenHaisma/segauge
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: teal
+      toggle:
+        icon: material/weather-night
+        name: Dark mode
+    - scheme: slate
+      primary: teal
+      toggle:
+        icon: material/weather-sunny
+        name: Light mode
+  features:
+    - navigation.instant
+    - navigation.sections
+    - content.code.copy
+    - search.highlight
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: false
+            docstring_style: google
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+
+nav:
+  - Home: index.md
+  - Quickstart: quickstart.md
+  - How-to:
+      - Compute HD95 in Python: compute-hd95-in-python.md
+      - Normalized Surface Dice (NSD): normalized-surface-dice-nsd.md
+      - Evaluate a DICOM-SEG: evaluate-dicom-seg.md
+      - Dice with confidence intervals: confidence-intervals.md
+      - Per-lesion detection F1: per-lesion-detection-f1.md
+  - segauge vs MONAI / Metrics Reloaded: vs-monai-metrics-reloaded.md
+  - API reference: api.md

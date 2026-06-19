@@ -74,6 +74,10 @@ dev = [
     "ruff>=0.6",
     "mypy>=1.10",
 ]
+docs = [
+    "mkdocs-material>=9.5",
+    "mkdocstrings[python]>=0.26",
+]
 
 # MeshMetrics (Apache-2.0, git-only) is used as a dev-only correctness ORACLE,
 # not a runtime dependency. Install it explicitly when running oracle tests:

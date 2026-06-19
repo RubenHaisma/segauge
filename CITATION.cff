@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use segauge in your research, please cite it."
+title: "segauge: geometrically-correct, DICOM-native evaluation metrics for medical image segmentation"
+authors:
+  - family-names: Haisma
+    given-names: Ruben
+type: software
+license: Apache-2.0
+repository-code: "https://github.com/RubenHaisma/segauge"
+url: "https://rubenhaisma.github.io/segauge/"
+keywords:
+  - medical image segmentation
+  - evaluation metrics
+  - Hausdorff distance
+  - HD95
+  - normalized surface dice
+  - DICOM
+  - Python
