@@ -71,9 +71,13 @@ NIfTI (`.nii`, `.nii.gz`), DICOM-SEG, RTSTRUCT, NumPy arrays, and `.npy`. Voxel 
 
 **2D images?** Overlap and detection metrics work in any dimension; surface-distance metrics are 3D in v0.1 (2D is planned for v0.2).
 
+## The segauge benchmark
+
+[**segauge-benchmark**](https://github.com/RubenHaisma/segauge-benchmark) is an independent, reproducible leaderboard for medical image segmentation models, built on segauge. It runs real models (TotalSegmentator, MONAI, MOOSE, CT-FM) on public data and reports every score with a confidence interval, a **ranking-stability** test, and a pairwise significance check, so you can tell a real lead from sampling noise. segauge 0.2.0 adds the `ranking_stability` and `paired_significance` functions that power it.
+
 ## Status
 
-Pre-release (`0.1.0.dev`), built in the open. segauge is an evaluation tool for developers and researchers. It is **not a medical device** and produces no diagnosis.
+Released (`0.2.0`), built in the open. segauge is an evaluation tool for developers and researchers. It is **not a medical device** and produces no diagnosis.
 
 ## References
 

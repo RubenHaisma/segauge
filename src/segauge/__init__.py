@@ -28,15 +28,18 @@ from segauge.metrics.distance import (
     surface_metrics,
 )
 from segauge.metrics.overlap import confusion, dice, iou
-from segauge.stats import bootstrap_ci
-from segauge.types import Estimate
+from segauge.stats import bootstrap_ci, paired_significance, ranking_stability
+from segauge.types import Estimate, PairedComparison, RankingResult, RankStat
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 __all__ = [
     "Case",
     "Estimate",
     "EvaluationResult",
+    "PairedComparison",
+    "RankStat",
+    "RankingResult",
     "__version__",
     "assd",
     "bootstrap_ci",
@@ -52,5 +55,7 @@ __all__ = [
     "load_rtstruct",
     "masd",
     "nsd",
+    "paired_significance",
+    "ranking_stability",
     "surface_metrics",
 ]
